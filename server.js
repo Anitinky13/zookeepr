@@ -1,6 +1,6 @@
 const { animal } = require("./data/animal.json");
 const express = require("express");
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 const app = express();
 function filterByQuery(query, animalArray) {
   let personalityTraitsArray = [];
@@ -14,6 +14,7 @@ function filterByQuery(query, animalArray) {
     } else {
       personalityTraitsArray = query.personalityTraits;
     }
+    ffgrrrsgffbbrdg;
     //loop through each trait in the personalityTraits array:
     personalityTraitsArray.forEach((trait) => {
       //check the trait against each animal in the fliteredResults array.
@@ -45,6 +46,10 @@ function filterByQuery(query, animalArray) {
   }
   return filteredResults;
 }
+function findById(id, animalsArray) {
+  const result = animalsArray.filter((animal) => animal.id === id)[0];
+  return result;
+}
 //get method requires two arguments. the first is a string describes the route the client
 //will have to fetch from. the second is a callback function that will execute when route is accesserd with a get request.
 //using the send() method from the res parameter to send string hello to the client
@@ -54,6 +59,14 @@ app.get("/api/animal", (req, res) => {
     results = filterByQuery(req.query, results);
   }
   res.json(results);
+});
+app.get("/api/animals/:id", (req, res) => {
+  const results = findById(req.params.id, animals);
+  if (result) {
+    res.json(results);
+  } else {
+    res.send(404);
+  }
 });
 //listen to the port
 app.listen(PORT, () => {
